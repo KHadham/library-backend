@@ -1,18 +1,37 @@
 module.exports = (app) => {
-    const controller = require('../controller/controller')
+  const ctrLib = require('../controller/library')
+  const ctrHist = require('../controller/history')
 
-    // GET
-    app.route ('/').get (controller.readall)
-    app.route ('/:param_id').get (controller.byid)
-    app.route ('/src/:lokasi').get (controller.search)
 
-    // POST
-    app.route ('/').post (controller.plus)
+  //kodingan cors anjing yang bikin error
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Methods","GET,POST,PUT,PATCH,DELETE,COPY,HEAD,LINK,UNLINK,PURGE,LOCK,UNLOCK,PROPFIND,VIEW");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      next();
+    });
 
-    // PATCH
-    app.route ('/:param_edit').patch (controller.edit)
+  // GET
+  app.route ('/buku').get (ctrLib.readall)
+  app.route ('/history').get (ctrHist.readHist)
 
-    // DELETE
-    app.route ('/:param_kocok').delete (controller.erase)
-    
+  app.route ('/buku/:param_id').get (ctrLib.byid)
+  app.route ('/history/:param_id').get (ctrHist.HistByid)
+
+  app.route ('/src/:lokasi').get (ctrLib.search)
+
+  // POST
+  app.route ('/buku').post (ctrLib.plus)
+  app.route ('/history').post (ctrHist.addRecord)
+
+
+  // PATCH
+  app.route ('/buku/:param_edit').patch (ctrLib.edit)
+  app.route ('/history/:param_history').patch (ctrHist.editRecord)
+
+
+  // DELETE
+  app.route ('/buku/:param_kocok').delete (ctrLib.erase)
+  app.route ('/history/:param_kocok').delete (ctrHist.hapus)
+  
 }

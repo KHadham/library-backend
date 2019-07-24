@@ -1,4 +1,5 @@
 DB utf 8 general CI
+npm init
 npm install express mysql body-parser dotenv
 git ignore node module dotenv
 add in package.json "start": "nodemon app.js"

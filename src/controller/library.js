@@ -1,9 +1,20 @@
 const resp = require('../helpers/response')
 const conn = require('../config/connect')
-const model = require('../models/model')
+const model = require('../models/library')
 
 exports.readall = (req, res) => {
     model.gethebook()
+    .then((resultBook) => {
+        resp.response(res, resultBook, 200)
+        }
+    )
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+exports.readHist = (req, res) => {
+    model.getheHist()
     .then((resultBook) => {
         resp.response(res, resultBook, 200)
         }
@@ -35,10 +46,31 @@ exports.plus = (req, res) => {
         nama_buku: req.body.nama_buku,
         pengarang: req.body.pengarang,
         lokasi: req.body.lokasi,
-        id_kategori: req.body.id_kategori
+        foto_sampul:req.body.foto_sampul,
+        deskripsi:req.body.deskripsi
     }
 
     model.nambah(data)
+    .then(()=> {
+        resp.responAdd(res, data, 200)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+exports.addRecord = (req, res) => {
+
+    const data = {
+        nama_buku: req.body.nama_buku,
+        pengarang: req.body.pengarang,
+        lokasi: req.body.lokasi,
+        foto_sampul: req.body.foto_sampul,
+        deskripsi: req.body.deskripsi,
+        id_kategori: req.body.id_kategori
+    }
+
+    model.peminjaman(data)
     .then(()=> {
         resp.responAdd(res, data, 200)
     })
@@ -55,7 +87,8 @@ exports.edit = (req, res) => {
         nama_buku: req.body.nama_buku,
         pengarang: req.body.pengarang,
         lokasi: req.body.lokasi,
-        id_kategori: req.body.id_kategori
+        foto_sampul: req.body.foto_sampul,
+
     }
 
     model.mEdit(datayangmaudiedit, idnya)
