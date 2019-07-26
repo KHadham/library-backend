@@ -13,8 +13,8 @@ exports.readall = (req, res) => {
     })
 }
 
-exports.readHist = (req, res) => {
-    model.getheHist()
+exports.readKtg = (req, res) => {
+    model.getCategory()
     .then((resultBook) => {
         resp.response(res, resultBook, 200)
         }

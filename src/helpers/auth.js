@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const MiscHelper = require('../helpers/response')
+const MiscHelper = require('./helpers')
 
 const allowedAccess = process.env.REQUEST_HEADERS
 

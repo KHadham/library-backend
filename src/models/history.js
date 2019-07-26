@@ -33,8 +33,7 @@ module.exports = {
     getheHist: (result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category
-            konaksi.query(`SELECT history.*,library.nama_buku FROM history INNER JOIN library ON history.id_buku = library.id
-            `, (err, result) => {
+            konaksi.query(`SELECT history.*,library.nama_buku,user.fullname,user.alamat FROM history INNER JOIN library ON history.id_buku = library.id INNER JOIN user ON history.id_peminjam = user.id_user`, (err, result) => {
                 if(!err){
                     resolve(result)
                 }else{
@@ -44,19 +43,6 @@ module.exports = {
         })
     },
 
-
-//create data peminjam
-    peminjssaman: (data, result) => {
-        return new Promise((resolve, reject) => {
-            konaksi.query(`INSERT INTO history SET ?`, data, (err, result) => {
-                if (!err) {
-                    resolve(result)
-                } else {
-                    reject(new Error(err))
-                }
-            })
-        })
-	},
 //create data peminjam
     peminjaman: (data,id_bukunya, result) => {
 			return new Promise((resolve, reject) => {

@@ -1,33 +1,6 @@
 const konaksi = require('../config/connect')
 
 module.exports = {
-
-//login user
-    getByEmail: (usernamenya) => {
-        return new Promise((resolve, reject) => {
-          connection.query('SELECT id_user, username, fullname, created_at, updated_at, salt, password FROM user WHERE username = ?', usernamenya, (err, result) => {
-            if (!err) {
-              resolve(result)
-            } else {
-              reject(new Error(err))
-            }
-          })
-        })
-			},
-
-//register user
-			register: (data) => {
-				return new Promise((resolve, reject) => {
-					connection.query('INSERT INTO user SET ?', data, (err, result) => {
-						if (!err) {
-							resolve(result)
-						} else {
-							reject(err)
-						}
-					})
-				})
-			},
-
 //read all
     gethebook: (result) => { 
         return new Promise((resolve, reject) => {

@@ -63,9 +63,8 @@ exports.addRecord = (req, res) => {
 
     const data = {
         id_buku: req.body.id_buku,
-        nama_peminjam: req.body.nama_peminjam,
-        no_ktp: req.body.no_ktp,
-        alamat_peminjam: req.body.alamat_peminjam,
+        id_peminjam: req.body.id_peminjam,
+        lama_pinjam: req.body.lama_pinjam,
     }
 
 const id_buku = req.body.id_buku
