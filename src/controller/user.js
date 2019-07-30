@@ -18,7 +18,7 @@ module.exports = {
 },
 ///// READ BY ID ///////////////////////////
   userbyid : (req, res) => {
-  let bookid = req.params.userid
+  let bookid = req.params.param_id
 
   userModels.userDetail(bookid)
   .then((resultBook) => {

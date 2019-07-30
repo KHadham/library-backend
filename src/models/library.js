@@ -5,7 +5,8 @@ module.exports = {
     gethebook: (result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category
-            konaksi.query(`SELECT * FROM library `, (err, result) => {
+            konaksi.query(`SELECT library.*,category.nama_kategori FROM library LEFT JOIN category ON library.id_kategori = category.id_category
+            `, (err, result) => {
                 if(!err){
                     resolve(result)
                 }else{
@@ -88,7 +89,7 @@ module.exports = {
     mList_id: (bookid, result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category WHERE id = ?
-            konaksi.query(`SELECT * FROM library WHERE id = ?`, bookid, (err, result) => {
+            konaksi.query(`SELECT library.*,category.nama_kategori FROM library LEFT JOIN category ON library.id_kategori = category.id_category WHERE id_library = ?`, bookid, (err, result) => {
                 // `SELECT * FROM library WHERE id = ?`
                 if(!err){
                     resolve(result)
@@ -144,7 +145,7 @@ module.exports = {
 //delete
     mHapoes: (bookid, result) => {
         return new Promise((resolve, reject) => {
-            konaksi.query(`DELETE FROM library WHERE id = ?` , bookid, (err, result) => {
+            konaksi.query(`DELETE FROM library WHERE id_library = ?` , bookid, (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {

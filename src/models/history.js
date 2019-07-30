@@ -19,7 +19,7 @@ module.exports = {
     getHist_id: (bookid, result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category WHERE id = ?
-            konaksi.query(`SELECT * FROM history WHERE id = ?`, bookid, (err, result) => {
+            konaksi.query(`SELECT library.nama_buku,history.* FROM user LEFT JOIN history ON history.id_peminjam = user.id_user LEFT JOIN library ON history.id_buku = library.id_library where id_user = ?`, bookid, (err, result) => {
                 // `SELECT * FROM library WHERE id = ?`
                 if(!err){
                     resolve(result)
@@ -33,7 +33,7 @@ module.exports = {
     getheHist: (result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category
-            konaksi.query(`SELECT history.*,library.nama_buku,user.fullname,user.alamat FROM history INNER JOIN library ON history.id_buku = library.id INNER JOIN user ON history.id_peminjam = user.id_user`, (err, result) => {
+            konaksi.query(`SELECT history.*,library.nama_buku,user.fullname,user.alamat FROM history INNER JOIN library ON history.id_buku = library.id_library INNER JOIN user ON history.id_peminjam = user.id_user`, (err, result) => {
                 if(!err){
                     resolve(result)
                 }else{
@@ -47,7 +47,7 @@ module.exports = {
     peminjaman: (data,id_bukunya, result) => {
 			return new Promise((resolve, reject) => {
 					konaksi.query(`INSERT INTO history SET ?`, data, (err, result) => {
-						konaksi.query(`UPDATE library SET status_pinjam	= '1' WHERE id =?`, id_bukunya, (err, result) => {
+						konaksi.query(`UPDATE library SET status_pinjam	= 'tidak tersedia' WHERE id_library =?`, id_bukunya, (err, result) => {
 
 							if (!err) {
 									resolve(result)
@@ -63,7 +63,7 @@ module.exports = {
     Hedit: (data,id_hist,id_buku, result) => {
         return new Promise((resolve, reject) => {
                 konaksi.query(` UPDATE history SET ? WHERE id =?`, [data,id_hist], (err, result) => {
-                    konaksi.query(`UPDATE library SET status_pinjam	= '0' WHERE id =?`, id_buku, (err, result) => {
+                    konaksi.query(`UPDATE library SET status_pinjam	= 'tersedia' WHERE id =?`, id_buku, (err, result) => {
 
                         if (!err) {
                                 resolve(result)

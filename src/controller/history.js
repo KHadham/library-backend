@@ -29,8 +29,8 @@ exports.HistByid = (req, res) => {
 
     model.getHist_id(bookid)
     .then((resultBook) => {
-        const result = resultBook[0]
-        resp.response(res, result, 200)
+        //const result = resultBook[0]
+        resp.response(res, resultBook, 200)
     })
     .catch((err) => {
         console.log(err)

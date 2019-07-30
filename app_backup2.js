@@ -1,12 +1,13 @@
 require('dotenv').config() // Initialize dotenv config
 
 const express = require('express') // Import express
-const Cors = require('cors')
 const bodyParser = require('body-parser') // Import body-parses
-const port = process.env.SERVER_PORT || 5000 // Default PORT
+const Cors = require('cors')
 const xssFilter = require('x-xss-protection')
 const logger = require('morgan')
 const app = express() // Create method
+const port = process.env.SERVER_PORT || 5000 // Default PORT
+
 const userRoute = require('./src/route/routes')
 const whitelist = process.env.WHITELIST
 
@@ -34,6 +35,6 @@ app.listen(port, () => {
 }) // Create listening app
 
 app.use(bodyParser.json()) // Body parse json
-app.use(bodyParser.urlencoded({ extended: false })) // body type
+app.use(bodyParser.urlencoded({ extended: true })) // body type
 
-app.use('./src/route/routes', userRoute)
+app.use('/user', userRoute)

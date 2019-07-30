@@ -2,7 +2,6 @@ module.exports = (app) => {
   const ctrLib = require('../controller/library')
   const ctrHist = require('../controller/history')
   const ctrUssr = require('../controller/user')
-  const Auth = require('../helpers/auth')
 
   //kodingan cors yang bikin error
   app.use(function(req, res, next) {
@@ -27,7 +26,7 @@ module.exports = (app) => {
   app.route ('/history/:param_history').patch (ctrHist.editRecord)
   app.route ('/history/:param_kocok').delete (ctrHist.hapus)
   
-  // USERS //////////////////////// Auth.accesstoken,
+  // USERS ////////////////////////
   app.route ('/users').get (ctrUssr.readall)
   app.route ('/users').post (ctrUssr.register)
   app.route ('/usersLogin').post (ctrUssr.login)
