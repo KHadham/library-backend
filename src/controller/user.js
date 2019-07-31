@@ -60,15 +60,17 @@ module.exports = {
 
 ///// UPDATE /////////////////
 edit_user : (req, res) => {
-
+  const salt = MiscHelper.generateSalt(18)
+    const passwordHash = MiscHelper.setPassword(req.body.password, salt)
   let idnya = req.params.param_user
 
   const datayangmaudiedit = {
-      email: req.body.email,
-      fullname: req.body.fullname,
-      password: req.body.password,
-      no_ktp: req.body.no_ktp,
-      alamat: req.body.alamat,
+    email: req.body.email,
+    fullname: req.body.fullname,
+    password: passwordHash.passwordHash,
+    alamat:req.body.alamat,
+    telepon:req.body.telepon,
+    background:req.body.background,
 
   }
 

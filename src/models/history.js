@@ -29,6 +29,20 @@ module.exports = {
             })
         })
     },
+     //REAL read by id
+     RealgetHist_id: (bookid, result) => { 
+        return new Promise((resolve, reject) => {
+            //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category WHERE id = ?
+            konaksi.query(`SELECT history.*,library.nama_buku,library.foto_sampul, user.fullname,user.telepon,user.alamat FROM history left join library ON library.id_library = history.id_buku left join user on history.id_peminjam = user.id_user where id = ?`, bookid, (err, result) => {
+                // `SELECT * FROM library WHERE id = ?`
+                if(!err){
+                    resolve(result)
+                }else{
+                    reject(new Error(err))
+                }
+            })
+        })
+    },
 //read all history
     getheHist: (result) => { 
         return new Promise((resolve, reject) => {
@@ -60,15 +74,14 @@ module.exports = {
     },
     
 //edit data peminjam
-    Hedit: (data,id_hist,id_buku, result) => {
+    Hedit: (data , id_hist , id_buku, result) => {
         return new Promise((resolve, reject) => {
-                konaksi.query(` UPDATE history SET ? WHERE id =?`, [data,id_hist], (err, result) => {
-                    konaksi.query(`UPDATE library SET status_pinjam	= 'tersedia' WHERE id =?`, id_buku, (err, result) => {
-
+                konaksi.query(` UPDATE history SET ? WHERE id = ?`, [data,id_hist], (err, result) => {
+                    konaksi.query(`UPDATE library SET status_pinjam	= 'tersedia' WHERE id_library = ? `, id_buku, (err, result) => {
                         if (!err) {
-                                resolve(result)
+                            resolve(result)
                         } else {
-                                reject(new Error(err))
+                            reject(new Error(err))
                         }
                   })
                 })

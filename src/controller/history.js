@@ -38,7 +38,19 @@ exports.HistByid = (req, res) => {
     })
 }
 
+exports.AsliHistByid = (req, res) => {
+    let bookid = req.params.param_id
 
+    model.RealgetHist_id(bookid)
+    .then((resultBook) => {
+        //const result = resultBook[0]
+        resp.response(res, resultBook, 200)
+    })
+    .catch((err) => {
+        console.log(err)
+        
+    })
+}
 
 exports.plus = (req, res) => {
 
@@ -79,18 +91,19 @@ const id_buku = req.body.id_buku
 
 exports.editRecord = (req, res) => {
 
-    let idnya = req.params.param_history
+    let idParamnya = req.params.param_history
     let id_buku = req.body.id_buku
-    const datayangmaudiedit = {
-        id_buku: req.body.id_buku,
-        // nama_peminjam: req.body.nama_peminjam,
-        // no_ktp: req.body.no_ktp,
+
+    const isiData = {
+        // id_buku: req.body.id_buku,
+        // id_peminjam: req.body.id_peminjam,
+        // lama_pinjam:req.body.lama_pinjam,
         tanggal_kembali: new Date(),
     }
 
-    model.Hedit(datayangmaudiedit, idnya,id_buku)
+    model.Hedit(isiData, idParamnya,id_buku)
     .then(() => {
-        resp.responUpd(res, datayangmaudiedit, 200,idnya)
+        resp.responUpd(res, isiData, 200,idParamnya)
     })
     .catch((err) => {
         console.log(err)

@@ -88,7 +88,8 @@ exports.edit = (req, res) => {
         pengarang: req.body.pengarang,
         lokasi: req.body.lokasi,
         foto_sampul: req.body.foto_sampul,
-
+        deskripsi: req.body.deskripsi,
+        id_kategori: req.body.id_kategori,
     }
 
     model.mEdit(datayangmaudiedit, idnya)

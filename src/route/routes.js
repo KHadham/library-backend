@@ -23,7 +23,8 @@ module.exports = (app) => {
   // HISTORY ////////////////////////
   app.route ('/history').get (ctrHist.readHist)
   app.route ('/history').post (ctrHist.addRecord)
-  app.route ('/history/:param_id').get (ctrHist.HistByid)
+  app.route ('/history/:param_id').get (ctrHist.HistByid) //by id user
+  app.route ('/history1/:param_id').get (ctrHist.AsliHistByid)//by id history
   app.route ('/history/:param_history').patch (ctrHist.editRecord)
   app.route ('/history/:param_kocok').delete (ctrHist.hapus)
   

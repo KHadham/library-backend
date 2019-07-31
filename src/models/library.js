@@ -57,19 +57,6 @@ module.exports = {
     },
 
 //edit status buku
-    editStats: (data, bookid, result) => {
-        return new Promise((resolve, reject) => {
-            konaksi.query(`UPDATE library SET ? WHERE id =?`, [data, bookid], (err, result) => {
-                if (!err) {
-                    resolve(result)
-                } else {
-                    reject(new Error(err))
-                }
-            })
-        })
-		},
-
-//edit status buku
 		upTanggal: (data, idnya,id_buku, result) => {
 			return new Promise((resolve, reject) => {
 					konaksi.query(`UPDATE history SET ? WHERE id =?`, [data, idnya], (err, result) => {
@@ -132,7 +119,7 @@ module.exports = {
 //edit
     mEdit: (data, bookid, result) => {
         return new Promise((resolve, reject) => {
-            konaksi.query(`UPDATE library SET ? WHERE id =?`, [data, bookid], (err, result) => {
+            konaksi.query(`UPDATE library SET ? WHERE id_library =?`, [data, bookid], (err, result) => {
                 if (!err) {
                     resolve(result)
                 } else {
