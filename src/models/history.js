@@ -33,7 +33,7 @@ module.exports = {
      RealgetHist_id: (bookid, result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category WHERE id = ?
-            konaksi.query(`SELECT history.*,library.nama_buku,library.foto_sampul, user.fullname,user.telepon,user.alamat FROM history left join library ON library.id_library = history.id_buku left join user on history.id_peminjam = user.id_user where id = ?`, bookid, (err, result) => {
+            konaksi.query(`SELECT history.*,library.nama_buku,library.foto_sampul, user.fullname,user.telepon,user.email,user.status,user.alamat,user.background FROM history left join library ON library.id_library = history.id_buku left join user on history.id_peminjam = user.id_user where id = ?`, bookid, (err, result) => {
                 // `SELECT * FROM library WHERE id = ?`
                 if(!err){
                     resolve(result)
@@ -47,7 +47,7 @@ module.exports = {
     getheHist: (result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category
-            konaksi.query(`SELECT history.*,library.nama_buku,user.fullname,user.alamat FROM history INNER JOIN library ON history.id_buku = library.id_library INNER JOIN user ON history.id_peminjam = user.id_user`, (err, result) => {
+            konaksi.query(`SELECT history.*,library.nama_buku,library.foto_sampul,user.fullname,user.alamat FROM history INNER JOIN library ON history.id_buku = library.id_library INNER JOIN user ON history.id_peminjam = user.id_user`, (err, result) => {
                 if(!err){
                     resolve(result)
                 }else{

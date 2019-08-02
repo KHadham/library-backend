@@ -1,0 +1,4 @@
+#Thu Aug 01 17:34:08 WIB 2019
+base.0=/home/arkademy/Documents/KH-adham/AwesomeProject/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.0=classes.dex
+path.0=classes.dex

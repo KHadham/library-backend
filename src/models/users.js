@@ -17,7 +17,7 @@ module.exports = {
 
   userDetail: (userid) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * from user where id_user = ?'
+      connection.query('SELECT user.* ,history.* from user left join history on user.id_user = history.id where id_user = ?'
       , userid, (err, result) => {
         if (!err) {
           resolve(result)
