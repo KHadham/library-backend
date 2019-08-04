@@ -1,5 +1,5 @@
 const express = require('express')
-const Route = express.Router()
+const Route = express.Routsser()
 
 const UserController = require('../controller/user')
 const Auth = require('../helpers/auth')
@@ -11,5 +11,7 @@ Route
   .get('/:userid', UserController.userDetail)
   .post('/register', UserController.register)
   .post('/login', UserController.login)
+    
+  
 
 module.exports = Route

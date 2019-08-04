@@ -46,7 +46,8 @@ exports.plus = (req, res) => {
         nama_buku: req.body.nama_buku,
         pengarang: req.body.pengarang,
         lokasi: req.body.lokasi,
-        foto_sampul:req.body.foto_sampul,
+        //foto_sampul:req.body.foto_sampul,
+        foto_sampul: 'http://localhost:5000/' + req.file.path,
         deskripsi:req.body.deskripsi
     }
 

@@ -3,7 +3,7 @@ module.exports = (app) => {
   const ctrHist = require('../controller/history')
   const ctrUssr = require('../controller/user')
   const Auth = require('../helpers/auth')
-
+ const multer = require('multer');
   //kodingan cors yang bikin error
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin","*");
@@ -11,10 +11,20 @@ module.exports = (app) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
     });
-
+    
+    const UploadImg = require('../helpers/uploadimg')
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './uploads/')
+        },
+        filename: function (req, file, cb) {
+            cb(null, new Date().toISOString() + file.originalname);
+        }
+    })
+    const upload = multer({ storage: storage })
   // BUKU ////////////////////////
   app.route ('/buku').get (ctrLib.readall)  
-  app.route ('/buku').post (ctrLib.plus)
+  app.route ('/buku').post (upload.single('foto_sampul'),ctrLib.plus)
   app.route ('/buku/:param_id').get (ctrLib.byid)
   app.route ('/buku/:param_edit').patch (ctrLib.edit)
   app.route ('/buku/:param_kocok').delete (ctrLib.erase)
