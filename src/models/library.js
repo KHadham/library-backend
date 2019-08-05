@@ -5,7 +5,7 @@ module.exports = {
     gethebook: (result) => { 
         return new Promise((resolve, reject) => {
             //SELECT lb.*,ct.nama_kategori FROM library as lb inner join category as ct on lb.id_kategori = ct.id_category
-            konaksi.query(`SELECT library.*,category.nama_kategori FROM library LEFT JOIN category ON library.id_kategori = category.id_category
+            konaksi.query(`SELECT library.*,category.nama_kategori FROM library LEFT JOIN category ON library.id_kategori = category.id_category  
             `, (err, result) => {
                 if(!err){
                     resolve(result)
