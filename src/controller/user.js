@@ -44,7 +44,6 @@ module.exports = {
       background:req.body.background,
       salt: passwordHash.salt,
       token: 'Test',
-      status: 1,
       created_at: new Date(),
       updated_at: new Date()
     }
@@ -83,14 +82,13 @@ edit_user : (req, res) => {
   })
 },
 
-///// DELETE //////////////////////////////
+/////logout//////////////////////////////
+logout : (req, res) => {
+  let idnya = req.params.param_user
 
-erase_user : (req, res) => {
-  let bookid = req.params.param_kocok
-
-  userModels.U_hapus(bookid)
+  userModels.signout( idnya)
   .then(() => {
-      MiscHelper.responDlt(res, bookid, 200)
+      MiscHelper.responUpd(res, "logout", 200,idnya)
   })
   .catch((err) => {
       console.log(err)
@@ -109,12 +107,22 @@ erase_user : (req, res) => {
 
         if (usePassword === dataUser.password) {
           dataUser.token = jwt.sign({
-            userid: dataUser.userid
+            id_user: dataUser.id_user,
+            telepon:dataUser.telepon,
+            fullname:dataUser.fullname
           }, process.env.SECRET_KEY, { expiresIn: '1h' })
 
           delete dataUser.salt
           delete dataUser.password
-
+          
+          userModels.updateToken(email, dataUser.token)
+              .then((result) => {
+                  console.log(result)
+              })
+              .catch((error) => {
+                  console.log(error)
+              })
+              
           return MiscHelper.response(res, dataUser, 200)
         } else {
           return MiscHelper.response(res, null, 403, 'Wrong password!')
@@ -123,5 +131,19 @@ erase_user : (req, res) => {
       .catch((error) => {
         console.log(error)
       })
-  }
+  },
+  ///// DELETE //////////////////////////////
+
+erase_user : (req, res) => {
+  let bookid = req.params.param_kocok
+
+  userModels.U_hapus(bookid)
+  .then(() => {
+      MiscHelper.responDlt(res, bookid, 200)
+  })
+  .catch((err) => {
+      console.log(err)
+  })
+},
+
 }

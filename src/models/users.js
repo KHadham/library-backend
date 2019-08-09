@@ -14,7 +14,18 @@ module.exports = {
         })
     })
 },
-
+  updateToken: (email, token) => {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE user SET token = ? WHERE email = ?', [token, email], (err, result) => {
+            if (!err) {
+                resolve(result)
+            } else {
+                reject(err)
+            }
+        })
+    })
+  },
+  
   userDetail: (userid) => {
     return new Promise((resolve, reject) => {
       connection.query('SELECT user.* ,history.* from user left join history on user.id_user = history.id where id_user = ?'
@@ -40,9 +51,23 @@ module.exports = {
     })
   },
 
+//logout
+ signout: (idlogout) => {
+  return new Promise((resolve, reject) => {
+    connection.query('UPDATE user SET token = "" WHERE id_user = ?', idlogout, (err, result) => {
+      if (!err) {
+        resolve(result)
+      } else {
+        reject(new Error(err))
+      }
+    })
+  })
+},
+
+//login
   getByEmail: (email) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT id_user, email, fullname, created_at, updated_at, salt, password FROM user WHERE email = ?', email, (err, result) => {
+      connection.query('SELECT * FROM user WHERE email = ?', email, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -55,15 +80,13 @@ module.exports = {
 //edit data peminjam
   U_edit: (data,id_hist, result) => {
     return new Promise((resolve, reject) => {
-            connection.query(` UPDATE user SET ? WHERE id_user =?`, [data,id_hist], (err, result) => {
-
-                    if (!err) {
-                            resolve(result)
-                    } else {
-                            reject(new Error(err))
-                    }
-              
-            })
+        connection.query(` UPDATE user SET ? WHERE id_user =?`, [data,id_hist], (err, result) => {
+          if (!err) {
+                  resolve(result)
+          } else {
+                  reject(new Error(err))
+          }
+        })
     })
 },
 //delete

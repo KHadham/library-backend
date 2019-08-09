@@ -95,9 +95,6 @@ exports.editRecord = (req, res) => {
     let id_buku = req.body.id_buku
 
     const isiData = {
-        // id_buku: req.body.id_buku,
-        // id_peminjam: req.body.id_peminjam,
-        // lama_pinjam:req.body.lama_pinjam,
         tanggal_kembali: new Date(),
     }
 

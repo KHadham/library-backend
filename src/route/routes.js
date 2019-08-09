@@ -1,8 +1,10 @@
 module.exports = (app) => {
+
   const ctrLib = require('../controller/library')
   const ctrHist = require('../controller/history')
   const ctrUssr = require('../controller/user')
   const Auth = require('../helpers/auth')
+
  const multer = require('multer');
   //kodingan cors yang bikin error
   app.use(function(req, res, next) {
@@ -22,8 +24,14 @@ module.exports = (app) => {
         }
     })
     const upload = multer({ storage: storage })
+  //.get('/', Auth.accesstoken, UserController.getUsers)
+
+  app.route ('/*').all (Auth.authInfo)  
+
   // BUKU ////////////////////////
-  app.route ('/buku').get (ctrLib.readall)  
+  app.route ('/buku').get (ctrLib.readall) 
+  app.route ('/bukuLimit').get (ctrLib.readlimited)  
+  //app.route ('/buku').get (Auth.accesstoken,ctrLib.readall)  
   app.route ('/buku').post (upload.single('foto_sampul'),ctrLib.plus)
   app.route ('/buku/:param_id').get (ctrLib.byid)
   app.route ('/buku/:param_edit').patch (ctrLib.edit)
@@ -31,7 +39,8 @@ module.exports = (app) => {
   app.route ('/src/:lokasi').get (ctrLib.search)
   
   // HISTORY ////////////////////////
-  app.route ('/history').get (ctrHist.readHist)
+  //app.route ('/history').get (ctrHist.readHist)
+  app.route ('/history').get (Auth.accesstoken,ctrHist.readHist)
   app.route ('/history').post (ctrHist.addRecord)
   app.route ('/history/:param_id').get (ctrHist.HistByid) //by id user
   app.route ('/history1/:param_id').get (ctrHist.AsliHistByid)//by id history
@@ -39,9 +48,11 @@ module.exports = (app) => {
   app.route ('/history/:param_kocok').delete (ctrHist.hapus)
   
   // USERS //////////////////////// Auth.accesstoken,
-  app.route ('/users').get (ctrUssr.readall)
+  //app.route ('/users').get (ctrUssr.readall)
+  app.route ('/users').get (Auth.accesstoken,ctrUssr.readall)
   app.route ('/users').post (ctrUssr.register)
   app.route ('/usersLogin').post (ctrUssr.login)
+  app.route ('/usersLogout/:param_user').patch (ctrUssr.logout)
   app.route ('/users/:param_id').get (ctrUssr.userbyid)
   app.route ('/users/:param_user').patch (ctrUssr.edit_user)
   app.route ('/users/:param_kocok').delete (ctrUssr.erase_user)

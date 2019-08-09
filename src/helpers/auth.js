@@ -31,7 +31,7 @@ module.exports = {
 
       if (err && err.name === 'JsonWebTokenError') return MiscHelper.response(res, null, 401, 'Invalid Token')
 
-      if (parseInt(userToken) !== parseInt(decoded.userid)) return MiscHelper.response(res, null, 401, 'Invalid User Token')
+      if (parseInt(userToken) !== parseInt(decoded.id_user)) return MiscHelper.response(res, null, 401, 'Invalid User Token')
       console.log(decoded)
       next()
     })

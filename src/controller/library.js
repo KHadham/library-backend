@@ -12,7 +12,30 @@ exports.readall = (req, res) => {
         console.log(err)
     })
 }
-
+exports.readlimited = (req, res) => {
+    let limit = parseInt(req.query.limit) || 6
+    let page = parseInt(req.query.page) || 1
+    model.geLimitbook(limit, page)
+        .then((resultBook) => {
+        resp.response(res, resultBook, 200)
+        }
+    )
+    .catch((err) => {
+        console.log(err)
+    })
+}
+// getBook: (req, res) => {
+//     let limit = parseInt(req.query.limit) || 6
+//     let page = parseInt(req.query.page) || 1
+//     bookModel
+//       .getBook(limit, page)
+//       .then(resultBook => {
+//         resp.response(res, resultBook, 200)
+//       })
+//       .catch(error => {
+//         console.log(error)
+//       })
+//   }, 
 exports.readKtg = (req, res) => {
     model.getCategory()
     .then((resultBook) => {
