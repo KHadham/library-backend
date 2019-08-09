@@ -6,13 +6,14 @@ module.exports = (app) => {
   const Auth = require('../helpers/auth')
 
   const multer = require('multer');
+
   //kodingan cors yang bikin error
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Methods","GET,POST,PUT,PATCH,DELETE,COPY,HEAD,LINK,UNLINK,PURGE,LOCK,UNLOCK,PROPFIND,VIEW");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-    });
+  // app.use(function(req, res, next) {
+  //   res.header("Access-Control-Allow-Origin","*");
+  //   res.header("Access-Control-Allow-Methods","GET,POST,PUT,PATCH,DELETE,COPY,HEAD,LINK,UNLINK,PURGE,LOCK,UNLOCK,PROPFIND,VIEW");
+  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  //   next();
+  //   });
 
     const UploadImg = require('../helpers/uploadimg')
     const storage = multer.diskStorage({

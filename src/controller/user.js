@@ -110,7 +110,7 @@ logout : (req, res) => {
             id_user: dataUser.id_user,
             telepon:dataUser.telepon,
             fullname:dataUser.fullname
-          }, process.env.SECRET_KEY, { expiresIn: '1h' })
+          }, "ahahah", { expiresIn: '1h' })
 
           delete dataUser.salt
           delete dataUser.password
