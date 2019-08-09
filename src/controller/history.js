@@ -96,6 +96,7 @@ exports.editRecord = (req, res) => {
 
     const isiData = {
         tanggal_kembali: new Date(),
+        denda:req.body.denda
     }
 
     model.Hedit(isiData, idParamnya,id_buku)
