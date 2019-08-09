@@ -28,7 +28,7 @@ const path = require ('path')
 //     })
 //   }
 // }
-// app.use(Cors())
+app.use(Cors())
 // app.options('*', Cors(corsOptions))
 app.use(xssFilter())
 app.use(logger('dev'))
