@@ -1,4 +1,4 @@
-# Simple REST
+# Simple REST API using Express JS
 ![](https://img.shields.io/badge/Code%20Style-Standard-yellow.svg)
 ![](https://img.shields.io/badge/Dependencies-Express-green.svg)
 ![](https://img.shields.io/badge/License-Beerware-yellowgreen.svg)
@@ -7,6 +7,7 @@
 ## Prerequiste
 - Node.js - Download and Install [Node.js](https://nodejs.org/en/) with [NVM](https://github.com/creationix/nvm) (Node Version Manager) - Simple bash script to manage multiple active node.js versions.
 - MySQL - Download and Install [MySQL](https://www.mysql.com/downloads/) - Make sure it's running on the default port.  
+- Post man - Download and install .[Post Man] to test Play with this API 
 
 ## Installation
 ### Clone
